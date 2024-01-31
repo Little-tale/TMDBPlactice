@@ -9,7 +9,15 @@
  -- 너무 오래 걸림 좀더 자세히 정보를 보고 레이아웃 생각해야함
  -> 중간에 잘못 판단한거 너무큼
  
+ */
+
+/*
+ 이제 고민해 보아야 할 문제는
+ 0. 지금 딕셔너리가 하드하게 0, 1, 2 로 눈에 보이게 해놓고 있는데 이 부분을 다른 방법이 있다면 좋을것 같다.
+    -> 일단 각 테이블 Row 에 해당하는 레이블이 어떤 레이블인지  Enum화 할 필요성이 보인다.
  
+ 1. 각 테이블뷰의 infoLabel에 어떠한 정보를 넘겨 줄수 있을까를 고민해 보아야 한다.
+ 2. 검색 할때에 id값을 받아오고 그 id 값을 통해 다시한면 요청할수 있으면 좋을것 같다.
  
  */
 
@@ -44,12 +52,9 @@ class ViewController: BasicViewController {
         TMDBManager.shared.fetchDetail(id: TMDBManager.dummyId) { result in
             self.accessDatas.append(result)
             self.allDatas.append([result])
-            
+        
             self.allDatasDic[0] = [result]
             
-            // print(self.accessDatas.first)
-            
-            print("11111")
             group.leave()
         }
        
@@ -60,7 +65,6 @@ class ViewController: BasicViewController {
             
             self.allDatasDic[1] = results
             
-            print("22222")
             group.leave()
         }
         group.enter()
@@ -70,7 +74,6 @@ class ViewController: BasicViewController {
             
             self.allDatasDic[2] = results
             
-            print("33333")
             group.leave()
         }
         
@@ -78,6 +81,7 @@ class ViewController: BasicViewController {
         group.notify(queue: .main) {
             self.tvSeriesTableView.reloadData()
         }
+        
     }
 
     override func configureHierarchy() {
@@ -104,73 +108,65 @@ class ViewController: BasicViewController {
     }
 }
 
-
+//MARK: - 코드가 더 간결해 질수 없을까..?
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allDatas.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: TVDetailTableViewCell.reusableIdentifier, for: indexPath) as! TVDetailTableViewCell
-            
-            cell.originalNameLabel.text = accessDatas[indexPath.row].original_name
+        
+        guard let tagName = TMDBManager.TVSearchResultsSections.from(tagNum: indexPath.row) else {
+            return UITableViewCell()
+        }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: TVSeriesTableViewCell.reusableIdentifier, for: indexPath) as! TVSeriesTableViewCell
+        
+        if indexPath.row == TMDBManager.TVSearchResultsSections.results.rawValue {
+            let resultcell = tableView.dequeueReusableCell(withIdentifier: TVDetailTableViewCell.reusableIdentifier, for: indexPath) as! TVDetailTableViewCell
+            resultcell.originalNameLabel.text = accessDatas[indexPath.row].original_name
             let urlString = TMDBManager.image + (accessDatas[indexPath.row].poster_path ?? "")
             
             let url = URL(string: urlString)
             
-            cell.posterImageView.kf.setImage(with: url)
-            cell.overViewLabel.text = accessDatas[indexPath.row].overview
+            resultcell.posterImageView.kf.setImage(with: url)
+            resultcell.overViewLabel.text = accessDatas[indexPath.row].overview
+            return resultcell
             
-            return cell
-        } else if indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: TVSeriesTableViewCell.reusableIdentifier, for: indexPath) as! TVSeriesTableViewCell
-            cell.infoLabel.text = "비슷한 임시 이름"
-            cell.tvCollectionView.dataSource = self
-            cell.tvCollectionView.delegate = self
-            
-            cell.tvCollectionView.tag = indexPath.row
-            
-            cell.tvCollectionView.register(TVDetailCollectionViewCell.self, forCellWithReuseIdentifier: TVDetailCollectionViewCell.reusuableIdentifier)
-            
-            
-            return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: TVSeriesTableViewCell.reusableIdentifier, for: indexPath) as! TVSeriesTableViewCell
-            cell.infoLabel.text = "비슷한 임시 이름2"
             cell.tvCollectionView.dataSource = self
             cell.tvCollectionView.delegate = self
-            
-            cell.tvCollectionView.tag = indexPath.row
+            cell.infoLabel.text = tagName.discription()
             
             cell.tvCollectionView.register(TVDetailCollectionViewCell.self, forCellWithReuseIdentifier: TVDetailCollectionViewCell.reusuableIdentifier)
+            cell.tvCollectionView.tag = indexPath.row
+            
+            cell.tvCollectionView.reloadData()
+            
             return cell
         }
+        
+
        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+        
     }
     
 }
 
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(collectionView.tag)
+        // print(collectionView.tag)
         return allDatas[collectionView.tag].count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TVDetailCollectionViewCell.reusuableIdentifier, for: indexPath) as! TVDetailCollectionViewCell
         
-        print("내가 컬렉션뷰 태그야 !!! ",collectionView.tag)
-        
         let tag = collectionView.tag
-        print("내가 컬렉션뷰 태그 마이너스 버전!!! ", collectionView.tag - 1)
-        
-        //let urlString = TMDBManager.image + (allDatas[tag][indexPath.row].profile_path ?? "")
-        // let urlString = TMDBManager.image + (allDatasDic[tag]?[indexPath.row].profile_path ?? "")
         
         var url = TMDBManager.image
         
@@ -181,14 +177,11 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
             url += urlString
         }
         
-        
-        print("url String", url)
-        
         let urlSetting = URL(string:url)
         
         cell.posterImageView.kf.setImage(with: urlSetting, placeholder: UIImage(systemName: "star"))
         cell.originalNameLabel.text = allDatas[tag][indexPath.row].original_name
-
+        
         
         return cell
     }

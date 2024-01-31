@@ -24,10 +24,31 @@ class TMDBManager {
     
     static let baseUrl = "https://api.themoviedb.org/3/tv/"
     
-    static let dummyId = "66573"
+    static let dummyId = "67486"
     static let kor = "?language=ko-KR"
     
     static let image = "https://image.tmdb.org/t/p/w500/"
+    
+    enum TVSearchResultsSections:Int {
+        case results
+        case recommend
+        case Aggregate
+        
+        func discription() -> String {
+            switch self {
+            case .results:
+                "드라마 정보"
+            case .recommend:
+                "드라마 추천"
+            case .Aggregate:
+                "드라마 캐스트 정보"
+            }
+        }
+        static func from(tagNum : Int) -> TVSearchResultsSections? {
+            return TVSearchResultsSections(rawValue: tagNum)
+        }
+    }
+    
     
     private init() {}
     

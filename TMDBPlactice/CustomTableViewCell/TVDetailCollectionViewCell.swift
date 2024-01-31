@@ -45,11 +45,8 @@ class TVDetailCollectionViewCell: UICollectionViewCell {
         }
     }
     func designView(){
-        posterImageView.backgroundColor = .orange
-        originalNameLabel.backgroundColor = .gray
+        // posterImageView.backgroundColor = .orange
+        originalNameLabel.backgroundColor = UIColor(displayP3Red: 157, green: 192, blue: 188, alpha: 0.8)
+        originalNameLabel.font = .systemFont(ofSize: 12, weight: .semibold)
     }
-}
-
-#Preview {
-    ViewController()
 }

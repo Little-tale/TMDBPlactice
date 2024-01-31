@@ -49,15 +49,17 @@ class TVSeriesTableViewCell: BasicTableViewCell {
         tvCollectionView.snp.makeConstraints { make in
             make.top.equalTo(infoLabel.snp.bottom)
             make.horizontalEdges.bottom.equalTo(contentView)
-            make.height.greaterThanOrEqualTo(140).priority(900)
+            make.height.greaterThanOrEqualTo(150).priority(900)
 
         }
         
         
     }
     override func designView() {
-        infoLabel.backgroundColor = .red
-        tvCollectionView.backgroundColor = .blue
+        //infoLabel.backgroundColor = .red
+        // tvCollectionView.backgroundColor = .blue
+        
+        infoLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
     }
     
     func collecionViewLayout() -> UICollectionViewLayout{

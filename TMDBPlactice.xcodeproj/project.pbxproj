@@ -26,6 +26,7 @@
 		7B0F37A32B6A2F5D00D26390 /* TVDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37A22B6A2F5D00D26390 /* TVDetailTableViewCell.swift */; };
 		7B0F37A52B6A3E4F00D26390 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7B0F37A42B6A3E4F00D26390 /* .gitignore */; };
 		7B0F37A72B6A3ED100D26390 /* TMDBModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37A62B6A3ED100D26390 /* TMDBModel.swift */; };
+		7B0F37A92B6A65CF00D26390 /* Before.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37A82B6A65CF00D26390 /* Before.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		7B0F37A22B6A2F5D00D26390 /* TVDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVDetailTableViewCell.swift; sourceTree = "<group>"; };
 		7B0F37A42B6A3E4F00D26390 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		7B0F37A62B6A3ED100D26390 /* TMDBModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBModel.swift; sourceTree = "<group>"; };
+		7B0F37A82B6A65CF00D26390 /* Before.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Before.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				7B0F379E2B6A1F3A00D26390 /* APIKey.swift */,
 				7B0F37A02B6A1F8000D26390 /* APIManager.swift */,
 				7B0F37A62B6A3ED100D26390 /* TMDBModel.swift */,
+				7B0F37A82B6A65CF00D26390 /* Before.swift */,
 			);
 			path = TMDBPlactice;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				7B0F37722B6A048200D26390 /* ViewController.swift in Sources */,
 				7B0F37A12B6A1F8000D26390 /* APIManager.swift in Sources */,
 				7B0F37872B6A172800D26390 /* BasicTableViewCell.swift in Sources */,
+				7B0F37A92B6A65CF00D26390 /* Before.swift in Sources */,
 				7B0F37822B6A053700D26390 /* BasicViewController.swift in Sources */,
 				7B0F376E2B6A048200D26390 /* AppDelegate.swift in Sources */,
 				7B0F37702B6A048200D26390 /* SceneDelegate.swift in Sources */,
