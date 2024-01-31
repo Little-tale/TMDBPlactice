@@ -131,6 +131,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             
             resultcell.posterImageView.kf.setImage(with: url)
             resultcell.overViewLabel.text = accessDatas[indexPath.row].overview
+            resultcell.dateLabel.text = allDatas[indexPath.row].first?.first_air_date
             return resultcell
             
         } else {

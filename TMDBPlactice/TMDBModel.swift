@@ -13,6 +13,7 @@ struct Detail: Decodable {
     let poster_path: String?
     let overview: String?
     let profile_path : String?
+    let first_air_date : String?
 }
 
 
