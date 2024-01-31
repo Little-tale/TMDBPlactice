@@ -29,16 +29,10 @@ class ViewController: BasicViewController {
     
     let tvSeriesTableView = UITableView()
     
-    let dummyTexts = ["드라마정보","비슷한 드라마 추천","드라마 캐스트 정보"]
-    
     // 이걸 딕셔너리로 key값을 통해 해결해 볼수 있게 해보는것도 좋은 방법이 될것 같음
-    var allDatas: [[Detail]] = []
+    // var allDatas: [[Detail]] = []
     
     var allDatasDic: [ Int : [Detail] ] = [:]
-    
-    var accessDatas: [Detail] = []
-    var secondDatas: [Detail] = []
-    var thirdDatas: [Detail] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,8 +44,7 @@ class ViewController: BasicViewController {
         
         // MARK: - append를 했었는데 이게 끝나는게 사실 제 각각 인셈이라 좋은 방법이 아닌것 같음
         TMDBManager.shared.fetchDetail(id: TMDBManager.dummyId) { result in
-            self.accessDatas.append(result)
-            self.allDatas.append([result])
+            // self.allDatas.append([result])
         
             self.allDatasDic[0] = [result]
             
@@ -60,8 +53,7 @@ class ViewController: BasicViewController {
        
         group.enter()
         TMDBManager.shared.fetchRecommend(id: TMDBManager.dummyId) { results in
-            self.secondDatas.append(contentsOf: results)
-            self.allDatas.append(results)
+            // self.allDatas.append(results)
             
             self.allDatasDic[1] = results
             
@@ -69,8 +61,8 @@ class ViewController: BasicViewController {
         }
         group.enter()
         TMDBManager.shared.fetchAggregate(id: TMDBManager.dummyId) { results in
-            self.thirdDatas.append(contentsOf:results)
-            self.allDatas.append(results)
+        
+            // self.allDatas.append(results)
             
             self.allDatasDic[2] = results
             
@@ -111,7 +103,7 @@ class ViewController: BasicViewController {
 //MARK: - 코드가 더 간결해 질수 없을까..?
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allDatas.count
+        return allDatasDic.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -124,14 +116,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.row == TMDBManager.TVSearchResultsSections.results.rawValue {
             let resultcell = tableView.dequeueReusableCell(withIdentifier: TVDetailTableViewCell.reusableIdentifier, for: indexPath) as! TVDetailTableViewCell
-            resultcell.originalNameLabel.text = accessDatas[indexPath.row].original_name
-            let urlString = TMDBManager.image + (accessDatas[indexPath.row].poster_path ?? "")
+            //
+            let index = TMDBManager.TVSearchResultsSections.results.rawValue
+            
+            resultcell.originalNameLabel.text = allDatasDic[indexPath.row]?[index].original_name
+            let urlString = TMDBManager.image + (allDatasDic[indexPath.row]?[index].poster_path ?? "")
             
             let url = URL(string: urlString)
             
             resultcell.posterImageView.kf.setImage(with: url)
-            resultcell.overViewLabel.text = accessDatas[indexPath.row].overview
-            resultcell.dateLabel.text = allDatas[indexPath.row].first?.first_air_date
+            resultcell.overViewLabel.text = allDatasDic[indexPath.row]?[index].overview
+            resultcell.dateLabel.text = allDatasDic[indexPath.row]?[index].first_air_date
             return resultcell
             
         } else {
@@ -161,7 +156,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // print(collectionView.tag)
-        return allDatas[collectionView.tag].count
+        // print(section,"왜 이거 아니지 이것도 말 되는데") // 아... 섹션이니까.. 0 이구나 컬렉션 입장에서는
+        return allDatasDic[collectionView.tag]?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -181,7 +177,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
         let urlSetting = URL(string:url)
         
         cell.posterImageView.kf.setImage(with: urlSetting, placeholder: UIImage(systemName: "star"))
-        cell.originalNameLabel.text = allDatas[tag][indexPath.row].original_name
+        cell.originalNameLabel.text = allDatasDic[tag]?[indexPath.row].original_name
         
         
         return cell
@@ -191,6 +187,3 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
 }
 
-//#Preview {
-//    ViewController()
-//}
