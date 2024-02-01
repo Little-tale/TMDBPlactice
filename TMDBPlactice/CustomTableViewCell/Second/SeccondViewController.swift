@@ -7,29 +7,32 @@
 
 import UIKit
 
-
-
-import UIKit
 import SnapKit
 import Kingfisher
+/*
+ // lazy var colView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+ 
+ 
+ // 이게 고정적인 느낌이 있는데 차라리 정해진 갯수가 없고 그 값에 따라
+ // 유동적으로 섹션이 생기면 좋지 않을까?
+ */
 
 class SeccondViewController: UIViewController {
     // 1. 테이블뷰 추가
-    let tableContentView = UITableView()
-    // lazy var colView = UICollectionView(frame: .zero, collectionViewLayout: layout())
+    // let tableContentView = UITableView()
     
-    
-    // 이게 고정적인 느낌이 있는데 차라리 정해진 갯수가 없고 그 값에 따라
-    // 유동적으로 섹션이 생기면 좋지 않을까?
-    
+    let trendMainView = TrendView()
+
     var allDatasDic: [ Int : [Detail] ] = [:]
+    
+    override func loadView() {
+        self.view = trendMainView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        all()
-        
-        
+        delegateAndDataSource()
+    
         let group = DispatchGroup()
         
         group.enter()
@@ -55,39 +58,21 @@ class SeccondViewController: UIViewController {
        
         group.notify(queue: .main) {
             print(self.allDatasDic.count,"ASdsad")
-            self.tableContentView.reloadData()
+            self.trendMainView.tableContentView.reloadData()
         }
         
     }
     
-    
-    func all(){
-        configureHierarchy()
-        configureLayout()
-        designView()
+    func delegateAndDataSource(){
         
-        navigationItem.title = "3단계"
-    }
-    
-    func configureHierarchy(){
-        view.addSubview(tableContentView)
-    }
-    func configureLayout(){
-        tableContentView.snp.makeConstraints { make in
-            make.verticalEdges.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
-        }
-    }
-    func designView(){
-        tableContentView.backgroundColor = .green
+        trendMainView.tableContentView.delegate = self
+        trendMainView.tableContentView.dataSource = self
         
-        tableContentView.delegate = self
-        tableContentView.dataSource = self
+        trendMainView.tableContentView.register(SeccondTableViewCell.self, forCellReuseIdentifier: SeccondTableViewCell.reuseableIdentifier)
         
-        tableContentView.register(SeccondTableViewCell.self, forCellReuseIdentifier: SeccondTableViewCell.reuseableIdentifier)
-        
-        tableContentView.estimatedRowHeight = 200
-        tableContentView.rowHeight = UITableView.automaticDimension
-        tableContentView.backgroundColor = .lightGray
+        trendMainView.tableContentView.estimatedRowHeight = 200
+        trendMainView.tableContentView.rowHeight = UITableView.automaticDimension
+        trendMainView.tableContentView.backgroundColor = .lightGray
     }
     
 

@@ -14,7 +14,7 @@
 /*
  이제 고민해 보아야 할 문제는
  0. 지금 딕셔너리가 하드하게 0, 1, 2 로 눈에 보이게 해놓고 있는데 이 부분을 다른 방법이 있다면 좋을것 같다.
-    -> 일단 각 테이블 Row 에 해당하는 레이블이 어떤 레이블인지  Enum화 할 필요성이 보인다.
+ -> 일단 각 테이블 Row 에 해당하는 레이블이 어떤 레이블인지  Enum화 할 필요성이 보인다.
  
  1. 각 테이블뷰의 infoLabel에 어떠한 정보를 넘겨 줄수 있을까를 고민해 보아야 한다.
  2. 검색 할때에 id값을 받아오고 그 id 값을 통해 다시한면 요청할수 있으면 좋을것 같다.
@@ -31,26 +31,25 @@ import Kingfisher
 
 class ViewController: BasicViewController {
     
-    let tvSeriesTableView = UITableView()
-    
-    // 이걸 딕셔너리로 key값을 통해 해결해 볼수 있게 해보는것도 좋은 방법이 될것 같음
-    // var allDatas: [[Detail]] = []
+    let mainView = SearchInfoView()
     
     var allDatasDic: [ Int : [Detail] ] = [:]
     
     var id: Int = 0
     
+    override func loadView() {
+        self.view = mainView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         registerInView()
         let group = DispatchGroup()
         
         id = 93405
         // MARK: - append를 했었는데 이게 끝나는게 사실 제 각각 인셈이라 좋은 방법이 아닌것 같음
         group.enter()
-        TMDBManager.shared.fetchInfoView(api: .detail(id: id, language: .kor)) { 
+        TMDBManager.shared.fetchInfoView(api: .detail(id: id, language: .kor)) {
             results in
             self.allDatasDic[0] = results
             group.leave()
@@ -61,43 +60,32 @@ class ViewController: BasicViewController {
             self.allDatasDic[1] = results
             group.leave()
         }
-
+        
         group.enter()
         TMDBManager.shared.fetchInfoViewList(api: .Aggregate(id: id, language: .kor)) {
             results in
             self.allDatasDic[2] = results
             group.leave()
         }
-    
+        
         group.notify(queue: .main) {
-            self.tvSeriesTableView.reloadData()
+            self.mainView.tvSeriesTableView.reloadData()
         }
         
     }
-
-    override func configureHierarchy() {
-        view.addSubview(tvSeriesTableView)
-    }
-    override func configureLayout() {
-        tvSeriesTableView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
-        }
-    }
+    
     
     func registerInView() {
-        tvSeriesTableView.delegate = self
-        tvSeriesTableView.dataSource = self
-        tvSeriesTableView.estimatedRowHeight = 250
+        mainView.tvSeriesTableView.delegate = self
+        mainView.tvSeriesTableView.dataSource = self
+        mainView.tvSeriesTableView.estimatedRowHeight = 250
         
-       
-        tvSeriesTableView.register(TVSeriesTableViewCell.self, forCellReuseIdentifier: TVSeriesTableViewCell.reusableIdentifier)
-        tvSeriesTableView.register(TVDetailTableViewCell.self, forCellReuseIdentifier: TVDetailTableViewCell.reusableIdentifier)
+        
+        mainView.tvSeriesTableView.register(TVSeriesTableViewCell.self, forCellReuseIdentifier: TVSeriesTableViewCell.reusableIdentifier)
+        mainView.tvSeriesTableView.register(TVDetailTableViewCell.self, forCellReuseIdentifier: TVDetailTableViewCell.reusableIdentifier)
         
     }
     
-    override func designView() {
-        tvSeriesTableView.backgroundColor = .brown
-    }
 }
 
 //MARK: - 코드가 더 간결해 질수 없을까..?
@@ -144,7 +132,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-   
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
@@ -182,7 +170,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
         
         return cell
     }
-
+    
     
     
 }

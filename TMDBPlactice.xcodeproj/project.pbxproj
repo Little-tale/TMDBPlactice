@@ -31,6 +31,9 @@
 		7B0F37B42B6B536D00D26390 /* SecondCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37B32B6B536D00D26390 /* SecondCollectionViewCell.swift */; };
 		7B0F37B62B6B53CC00D26390 /* SeccondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37B52B6B53CC00D26390 /* SeccondViewController.swift */; };
 		7B0F37BA2B6B79B500D26390 /* TMDBAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37B92B6B79B500D26390 /* TMDBAPI.swift */; };
+		7B0F37BD2B6BBEF700D26390 /* BasicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37BC2B6BBEF700D26390 /* BasicView.swift */; };
+		7B0F37C02B6BBFAF00D26390 /* SearchInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37BF2B6BBFAF00D26390 /* SearchInfoView.swift */; };
+		7B0F37C32B6BC3BC00D26390 /* TrendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37C22B6BC3BC00D26390 /* TrendView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +59,9 @@
 		7B0F37B32B6B536D00D26390 /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
 		7B0F37B52B6B53CC00D26390 /* SeccondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeccondViewController.swift; sourceTree = "<group>"; };
 		7B0F37B92B6B79B500D26390 /* TMDBAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBAPI.swift; sourceTree = "<group>"; };
+		7B0F37BC2B6BBEF700D26390 /* BasicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicView.swift; sourceTree = "<group>"; };
+		7B0F37BF2B6BBFAF00D26390 /* SearchInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInfoView.swift; sourceTree = "<group>"; };
+		7B0F37C22B6BC3BC00D26390 /* TrendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +99,7 @@
 		7B0F376C2B6A048200D26390 /* TMDBPlactice */ = {
 			isa = PBXGroup;
 			children = (
+				7B0F37BB2B6BBEDB00D26390 /* CustomView */,
 				7B0F37832B6A163C00D26390 /* CustomTableViewCell */,
 				7B0F376D2B6A048200D26390 /* AppDelegate.swift */,
 				7B0F376F2B6A048200D26390 /* SceneDelegate.swift */,
@@ -131,6 +138,32 @@
 				7B0F37B52B6B53CC00D26390 /* SeccondViewController.swift */,
 			);
 			path = Second;
+			sourceTree = "<group>";
+		};
+		7B0F37BB2B6BBEDB00D26390 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				7B0F37C12B6BC35400D26390 /* TrendView */,
+				7B0F37BE2B6BBF9D00D26390 /* SearchInfoView */,
+				7B0F37BC2B6BBEF700D26390 /* BasicView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		7B0F37BE2B6BBF9D00D26390 /* SearchInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				7B0F37BF2B6BBFAF00D26390 /* SearchInfoView.swift */,
+			);
+			path = SearchInfoView;
+			sourceTree = "<group>";
+		};
+		7B0F37C12B6BC35400D26390 /* TrendView */ = {
+			isa = PBXGroup;
+			children = (
+				7B0F37C22B6BC3BC00D26390 /* TrendView.swift */,
+			);
+			path = TrendView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +250,7 @@
 			files = (
 				7B0F37852B6A168B00D26390 /* TVSeriesTableViewCell.swift in Sources */,
 				7B0F37BA2B6B79B500D26390 /* TMDBAPI.swift in Sources */,
+				7B0F37C32B6BC3BC00D26390 /* TrendView.swift in Sources */,
 				7B0F37A32B6A2F5D00D26390 /* TVDetailTableViewCell.swift in Sources */,
 				7B0F37B42B6B536D00D26390 /* SecondCollectionViewCell.swift in Sources */,
 				7B0F37722B6A048200D26390 /* ViewController.swift in Sources */,
@@ -231,6 +265,8 @@
 				7B0F379F2B6A1F3A00D26390 /* APIKey.swift in Sources */,
 				7B0F37A72B6A3ED100D26390 /* TMDBModel.swift in Sources */,
 				7B0F379B2B6A1E9000D26390 /* TVCollectionViewCell.swift in Sources */,
+				7B0F37BD2B6BBEF700D26390 /* BasicView.swift in Sources */,
+				7B0F37C02B6BBFAF00D26390 /* SearchInfoView.swift in Sources */,
 				7B0F37B22B6B51B500D26390 /* SeccondTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
