@@ -38,37 +38,37 @@ class ViewController: BasicViewController {
     
     var allDatasDic: [ Int : [Detail] ] = [:]
     
+    var id: Int = 0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         registerInView()
         let group = DispatchGroup()
         
-        group.enter()
+        id = 93405
         // MARK: - append를 했었는데 이게 끝나는게 사실 제 각각 인셈이라 좋은 방법이 아닌것 같음
-        TMDBManager.shared.fetchDetail(id: TMDBManager.dummyId) { result in
-        
-            self.allDatasDic[0] = [result]
-            
+        group.enter()
+        TMDBManager.shared.fetchInfoView(api: .detail(id: id, language: .kor)) { 
+            results in
+            self.allDatasDic[0] = results
             group.leave()
         }
-       
         group.enter()
-        TMDBManager.shared.fetchRecommend(id: TMDBManager.dummyId) { results in
-            
+        TMDBManager.shared.fetchInfoViewList(api: .recommend(id: id, language: .kor)) {
+            results in
             self.allDatasDic[1] = results
-            
             group.leave()
         }
+
         group.enter()
-        TMDBManager.shared.fetchAggregate(id: TMDBManager.dummyId) { results in
-            
+        TMDBManager.shared.fetchInfoViewList(api: .Aggregate(id: id, language: .kor)) {
+            results in
             self.allDatasDic[2] = results
-            
             group.leave()
         }
-        
-        
+    
         group.notify(queue: .main) {
             self.tvSeriesTableView.reloadData()
         }

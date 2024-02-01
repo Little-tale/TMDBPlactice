@@ -22,12 +22,66 @@ class TMDBManager {
     
     static let shared = TMDBManager()
     
-    static let baseUrl = "https://api.themoviedb.org/3/tv/"
+   
     
     static let dummyId = "64010"
     static let kor = "?language=ko-KR"
     
     static let image = "https://image.tmdb.org/t/p/w500/"
+    
+    enum BasicUrl {
+        static let trendTV = "https://api.themoviedb.org/3/trending/tv"
+        static let topRatedTV = "https://api.themoviedb.org/3/tv/top_rated"
+        static let popularTV = "https://api.themoviedb.org/3/tv/popular"
+        static let image = "https://image.tmdb.org/t/p/w500/"
+        static let ThirdViewBase = "https://api.themoviedb.org/3/tv/"
+        //
+    }
+    
+    enum TrendType {
+        static let day = "/day"
+        static let week = "/week"
+    }
+    
+    /// NEW
+    func fetchInfoView(api: TMDBAPITV, complitionHandller: @escaping([Detail]) -> Void) {
+        
+        print(api.endPoint)
+   
+        AF.request(api.endPoint, method: api.method, parameters: api.parameter, encoding: URLEncoding(destination: .queryString), headers: api.Header).responseDecodable(of: Detail.self) {response in
+            switch response.result {
+            case .success(let success):
+                // print(success)
+                complitionHandller([success])
+            case .failure(let failure):
+                print(failure)
+            }
+        }
+    }
+    
+    /// NEW2 Details
+    func fetchInfoViewList(api: TMDBAPITV, complitionHandller: @escaping([Detail]) -> Void) {
+        
+        print(api.endPoint)
+        
+        AF.request(api.endPoint, method: api.method, parameters: api.parameter, encoding: URLEncoding(destination: .queryString), headers: api.Header).responseDecodable(of: Details.self) {response in
+            switch response.result {
+            case .success(let success):
+                if let suc = success.results {
+                    complitionHandller(suc)
+                }
+                if let suc = success.cast {
+                    complitionHandller(suc)
+                }
+            case .failure(let failure):
+                print(failure)
+            }
+        }
+    }
+    
+    
+   /// VIew 2 -> Start
+    
     
     enum TVSearchResultsSections:Int {
         case results
@@ -50,6 +104,61 @@ class TMDBManager {
     }
     
     
+    // MARK: - 테스트를 위해 숫자를 마구잡이로 -> 하게되면 만들어둔 배열이 0 1 2 3 이런식이라 고민 많이 해야함
+    enum TMDBTag: Int {
+        case trendTV
+        case topRatedTV
+        case popularTV
+        
+        // MARK: - 이메서드는 각 태그의 따라 스트링을 뱉어줄거야
+        func getTMDBTagString() -> String {
+            switch self {
+            case .trendTV:
+                "트렌트"
+            case .topRatedTV:
+                "TOP RATED"
+            case .popularTV:
+                "POPULAR"
+            }
+        }
+        
+        // MARK: 이 메서드는 태그 숫자를 받으면 태그를 넘겨줄거야
+        static func from(tagNum: Int) -> TMDBTag? {
+            return TMDBTag(rawValue: tagNum)
+        }
+    }
+    
+    func petchTMDBTV (basicUrl: String, Type: String? , compliteHandler : @escaping (TMDBTVAll) -> Void ) {
+        var url = basicUrl //BasicUrl.popularTV
+        
+//        if Type != nil{
+//            url = url + Type!
+//        }
+        if let type = Type {
+            url = url + type
+        }
+        
+        AF.request(url, method: .get, headers: TMDBManager.Header).responseDecodable(of: TMDBTVAll.self) { response in
+            switch response.result {
+            case .success(let success):
+//                print(success)
+                compliteHandler(success)
+            case .failure(let failure):
+                print("✂️✂️✂️✂️✂️✂️")
+                print(failure)
+            }
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     private init() {}
     
     static let Header: HTTPHeaders = [
@@ -59,51 +168,11 @@ class TMDBManager {
     // 1. 통신 성공
     // 2. 값을 어떤 형태로 전달할지 고민해야함 차피 하나여서
     
-    func fetchDetail(id: String, complitionHandller: @escaping(Detail) -> Void ) {
-        //https://api.themoviedb.org/3/tv/{series_id}?language=ko-KR
-        
-        let url = TMDBManager.baseUrl + id + TMDBManager.kor
-        
-        AF.request(url, method: .get, headers: TMDBManager.Header).responseDecodable(of: Detail.self) { response in
-            switch response.result {
-            case .success(let success):
-                complitionHandller(success)
-            case .failure(let failure):
-                
-                print(failure)
-            }
-        }
-    }
-    func fetchRecommend(id: String, complitionHandller: @escaping ([Detail]) -> Void) {
-        // https://api.themoviedb.org/3/tv/{series_id}/recommendations
-        
-        let url = TMDBManager.baseUrl + id + "/recommendations"
-        
-        AF.request(url, method: .get, headers: TMDBManager.Header).responseDecodable(of: Recommend.self) { response in
-            switch response.result {
-            case .success(let success):
-                complitionHandller(success.results)
-            case .failure(let failure):
-                print(failure)
-            }
-        }
-    }
+    
+   
     
     // 없는 값을 nil 로 해서 하나의 데이터 모델로 만들수 있다...!
     // 
-    func fetchAggregate(id: String, complitionHandller:  @escaping ([Detail]) -> Void ) {
-        // https://api.themoviedb.org/3/tv/{series_id}/aggregate_credits
-        let url = TMDBManager.baseUrl + id + "/aggregate_credits"
-        
-        AF.request(url, method: .get, headers: TMDBManager.Header).responseDecodable(of: Aggregate.self) { response in
-            switch response.result {
-            case .success(let success):
-                complitionHandller(success.cast)
-            case .failure(let failure):
-                print(failure,"🎭🎭🎭🎭🎭🎭🎭🎭🎭🎭")
-            }
-        }
-    }
-    
-    
+  
+
 }

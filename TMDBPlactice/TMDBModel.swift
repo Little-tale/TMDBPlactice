@@ -16,18 +16,61 @@ struct Detail: Decodable {
     let first_air_date : String?
 }
 
+struct Details: Decodable {
+    let results, cast : [Detail]?
+    
+}
+struct DetailCast: Decodable {
+    let cast:[Detail]
+}
 
 struct Recommend: Decodable {
     let results: [Detail]
 }
-
+//
 struct Aggregate: Decodable {
     let cast: [Detail]
 }
 
-// -> 
-struct Cast: Decodable {
-    let profile_path : String?
+// ------------------------
+
+struct TMDBTV :Decodable {
+    let results : [Results]
+}
+
+struct Results: Decodable {
+    let name: String
+    let poster_path: String
+}
+///
+
+struct TMDBTop : Decodable {
+    
+    let results : [TopResults]
+}
+struct TopResults: Decodable {
+    
+    let original_name: String
+    let poster_path: String
+}
+
+///
+struct TMDBPopular: Decodable {
+    let results : [Populars]
+    
+}
+
+struct Populars: Decodable {
     let original_name : String
-    let overview: String?
+    let poster_path : String?
+}
+
+struct TMDBTVAll: Decodable {
+    let results : [AllResults]
+}
+
+struct AllResults: Decodable {
+    let original_name: String
+    let poster_path: String?
+    let id: Int
 }

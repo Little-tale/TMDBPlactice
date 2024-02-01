@@ -27,6 +27,10 @@
 		7B0F37A52B6A3E4F00D26390 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7B0F37A42B6A3E4F00D26390 /* .gitignore */; };
 		7B0F37A72B6A3ED100D26390 /* TMDBModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37A62B6A3ED100D26390 /* TMDBModel.swift */; };
 		7B0F37A92B6A65CF00D26390 /* Before.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37A82B6A65CF00D26390 /* Before.swift */; };
+		7B0F37B22B6B51B500D26390 /* SeccondTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37B12B6B51B500D26390 /* SeccondTableViewCell.swift */; };
+		7B0F37B42B6B536D00D26390 /* SecondCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37B32B6B536D00D26390 /* SecondCollectionViewCell.swift */; };
+		7B0F37B62B6B53CC00D26390 /* SeccondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37B52B6B53CC00D26390 /* SeccondViewController.swift */; };
+		7B0F37BA2B6B79B500D26390 /* TMDBAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37B92B6B79B500D26390 /* TMDBAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +52,10 @@
 		7B0F37A42B6A3E4F00D26390 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		7B0F37A62B6A3ED100D26390 /* TMDBModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBModel.swift; sourceTree = "<group>"; };
 		7B0F37A82B6A65CF00D26390 /* Before.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Before.swift; sourceTree = "<group>"; };
+		7B0F37B12B6B51B500D26390 /* SeccondTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeccondTableViewCell.swift; sourceTree = "<group>"; };
+		7B0F37B32B6B536D00D26390 /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
+		7B0F37B52B6B53CC00D26390 /* SeccondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeccondViewController.swift; sourceTree = "<group>"; };
+		7B0F37B92B6B79B500D26390 /* TMDBAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +105,7 @@
 				7B0F37A02B6A1F8000D26390 /* APIManager.swift */,
 				7B0F37A62B6A3ED100D26390 /* TMDBModel.swift */,
 				7B0F37A82B6A65CF00D26390 /* Before.swift */,
+				7B0F37B92B6B79B500D26390 /* TMDBAPI.swift */,
 			);
 			path = TMDBPlactice;
 			sourceTree = "<group>";
@@ -104,6 +113,7 @@
 		7B0F37832B6A163C00D26390 /* CustomTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				7B0F37B02B6B517900D26390 /* Second */,
 				7B0F37842B6A168B00D26390 /* TVSeriesTableViewCell.swift */,
 				7B0F37862B6A172800D26390 /* BasicTableViewCell.swift */,
 				7B0F379A2B6A1E9000D26390 /* TVCollectionViewCell.swift */,
@@ -111,6 +121,16 @@
 				7B0F37A22B6A2F5D00D26390 /* TVDetailTableViewCell.swift */,
 			);
 			path = CustomTableViewCell;
+			sourceTree = "<group>";
+		};
+		7B0F37B02B6B517900D26390 /* Second */ = {
+			isa = PBXGroup;
+			children = (
+				7B0F37B12B6B51B500D26390 /* SeccondTableViewCell.swift */,
+				7B0F37B32B6B536D00D26390 /* SecondCollectionViewCell.swift */,
+				7B0F37B52B6B53CC00D26390 /* SeccondViewController.swift */,
+			);
+			path = Second;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,8 +216,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B0F37852B6A168B00D26390 /* TVSeriesTableViewCell.swift in Sources */,
+				7B0F37BA2B6B79B500D26390 /* TMDBAPI.swift in Sources */,
 				7B0F37A32B6A2F5D00D26390 /* TVDetailTableViewCell.swift in Sources */,
+				7B0F37B42B6B536D00D26390 /* SecondCollectionViewCell.swift in Sources */,
 				7B0F37722B6A048200D26390 /* ViewController.swift in Sources */,
+				7B0F37B62B6B53CC00D26390 /* SeccondViewController.swift in Sources */,
 				7B0F37A12B6A1F8000D26390 /* APIManager.swift in Sources */,
 				7B0F37872B6A172800D26390 /* BasicTableViewCell.swift in Sources */,
 				7B0F37A92B6A65CF00D26390 /* Before.swift in Sources */,
@@ -208,6 +231,7 @@
 				7B0F379F2B6A1F3A00D26390 /* APIKey.swift in Sources */,
 				7B0F37A72B6A3ED100D26390 /* TMDBModel.swift in Sources */,
 				7B0F379B2B6A1E9000D26390 /* TVCollectionViewCell.swift in Sources */,
+				7B0F37B22B6B51B500D26390 /* SeccondTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
