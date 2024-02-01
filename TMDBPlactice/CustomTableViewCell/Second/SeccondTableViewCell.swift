@@ -27,6 +27,11 @@ class SeccondTableViewCell: UITableViewCell {
         configureHierarchy()
         configureLayout()
         designView()
+        registers()
+    }
+    
+    func registers(){
+        collecionView.register(SecondCollectionViewCell.self, forCellWithReuseIdentifier: SecondCollectionViewCell.reuseIdenti)
     }
     
     func configureHierarchy(){
@@ -48,6 +53,7 @@ class SeccondTableViewCell: UITableViewCell {
         self.backgroundColor = .blue
         collecionView.backgroundColor = .red
         titleLabel.backgroundColor = .white
+        
     }
     
     func configureCollectionViewLayout() -> UICollectionViewLayout {

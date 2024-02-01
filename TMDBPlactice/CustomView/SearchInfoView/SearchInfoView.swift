@@ -1,9 +1,6 @@
-//
-//  TrendVIew.swift
-//  TMDBPlactice
-//
-//  Created by Jae hyung Kim on 2/1/24.
-//
+
+
+// 이제 컬렉션뷰 옮기기
 
 import UIKit
 import SnapKit

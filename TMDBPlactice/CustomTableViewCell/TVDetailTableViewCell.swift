@@ -98,32 +98,7 @@ class TVDetailTableViewCell: BasicTableViewCell {
         
         print(UIScreen.main.bounds.height / 10 )
         
-        //dateLabel.backgroundColor = .gray
-        //originalNameLabel.backgroundColor = .red
+    
     }
 }
-//#Preview {
-//    ViewController()
-//}
 
-
-
-/*
- posterImageView.snp.makeConstraints { make in
-     make.leading.verticalEdges.equalTo(contentView).inset(8)
-     make.width.equalTo(80)
-     make.height.equalTo(posterImageView.snp.width).multipliedBy(1.5).priority(930)
- }
- originalNameLabel.snp.makeConstraints { make in
-     make.top.equalTo(posterImageView.snp.top)
-     make.leading.equalTo(posterImageView.snp.trailing).offset(8)
-     make.trailing.equalTo(contentView).inset(12)
-     make.height.equalTo(30).priority(900)
- }
- overViewLabel.snp.makeConstraints { make in
-     make.bottom.equalTo(posterImageView.snp.bottom)
-     make.leading.equalTo(posterImageView.snp.trailing).offset(8)
-     make.trailing.equalTo(contentView).inset(12)
-     make.top.equalTo(originalNameLabel.snp.bottom).inset(4)
- }
- */

@@ -11,15 +11,7 @@ import SnapKit
 class TrendView: BasicView {
     let tableContentView = UITableView()
    
-    
-    
-    
-    override func configureView() {
-        self.backgroundColor = .white
-        
-        //tableContentView.backgroundColor = .green
-        
-    }
+   
     override func configureHierachy() {
        addSubview(tableContentView)
     }
@@ -28,6 +20,20 @@ class TrendView: BasicView {
         tableContentView.snp.makeConstraints { make in
             make.edges.equalTo(safeAreaLayoutGuide)
         }
+    }
+    override func configureView() {
+        self.backgroundColor = .white
+        desingTableView()
+        
+        
+    }
+    
+    
+    func desingTableView(){
+        tableContentView.register(SeccondTableViewCell.self, forCellReuseIdentifier: SeccondTableViewCell.reuseableIdentifier)
+        
+       tableContentView.estimatedRowHeight = 200
+        tableContentView.rowHeight = UITableView.automaticDimension
     }
     
     

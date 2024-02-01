@@ -1,12 +1,4 @@
-//
-//  SeccondViewController.swift
-//  TMDBPlactice
-//
-//  Created by Jae hyung Kim on 2/1/24.
-//
-
 import UIKit
-
 import SnapKit
 import Kingfisher
 /*
@@ -57,22 +49,14 @@ class SeccondViewController: UIViewController {
         }
        
         group.notify(queue: .main) {
-            print(self.allDatasDic.count,"ASdsad")
             self.trendMainView.tableContentView.reloadData()
         }
         
     }
-    
     func delegateAndDataSource(){
         
         trendMainView.tableContentView.delegate = self
         trendMainView.tableContentView.dataSource = self
-        
-        trendMainView.tableContentView.register(SeccondTableViewCell.self, forCellReuseIdentifier: SeccondTableViewCell.reuseableIdentifier)
-        
-        trendMainView.tableContentView.estimatedRowHeight = 200
-        trendMainView.tableContentView.rowHeight = UITableView.automaticDimension
-        trendMainView.tableContentView.backgroundColor = .lightGray
     }
     
 
@@ -90,12 +74,7 @@ extension SeccondViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.collecionView.delegate = self
         cell.collecionView.dataSource = self
-        cell.collecionView.register(SecondCollectionViewCell.self, forCellWithReuseIdentifier: SecondCollectionViewCell.reuseIdenti)
         
-        print("테이블 뷰의 로우가 내 아들의 섹션 : ",indexPath.row)
-        // -> 테이블뷰의 로우가 컬의 섹션이 될수 있겠다.
-        
-        //MARK: 자식컬렉션에 태그를 넣어 근데 이 태그가 유동적으로 처리하게끔 한번 해보고싶다.
         cell.collecionView.tag = indexPath.row
         
         
@@ -113,7 +92,7 @@ extension SeccondViewController: UITableViewDelegate, UITableViewDataSource {
 //MARK: - 컬렉션뷰는 items에 속한다고 생각
 extension SeccondViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //print("데이터가 없니??", allData[collectionView.tag].results.count)
+       
         return allDatasDic[collectionView.tag]?.count ?? 0
     }
     
@@ -122,7 +101,6 @@ extension SeccondViewController: UICollectionViewDelegate, UICollectionViewDataS
         cell.backgroundColor = .brown
         
         let tag = collectionView.tag
-        print("난 아들인데 번호가..? ",collectionView.tag)
         
         var url = TMDBManager.image
         
@@ -137,7 +115,6 @@ extension SeccondViewController: UICollectionViewDelegate, UICollectionViewDataS
         cell.imageView.kf.setImage(with: urlSetting , placeholder: UIImage(systemName: "star"))
         
         cell.titleLabel.text = allDatasDic[tag]?[indexPath.row].original_name
-        
         
         return cell
     }

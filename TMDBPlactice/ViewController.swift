@@ -74,7 +74,8 @@ class ViewController: BasicViewController {
         
     }
     
-    
+    // TVSeriesTableViewCell
+    // TVDetailTableViewCell
     func registerInView() {
         mainView.tvSeriesTableView.delegate = self
         mainView.tvSeriesTableView.dataSource = self
@@ -143,8 +144,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // print(collectionView.tag)
-        // print(section,"왜 이거 아니지 이것도 말 되는데") // 아... 섹션이니까.. 0 이구나 컬렉션 입장에서는
+   
         return allDatasDic[collectionView.tag]?.count ?? 0
     }
     
