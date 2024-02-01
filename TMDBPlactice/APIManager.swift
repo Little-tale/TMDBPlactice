@@ -24,7 +24,7 @@ class TMDBManager {
     
     static let baseUrl = "https://api.themoviedb.org/3/tv/"
     
-    static let dummyId = "67486"
+    static let dummyId = "64010"
     static let kor = "?language=ko-KR"
     
     static let image = "https://image.tmdb.org/t/p/w500/"

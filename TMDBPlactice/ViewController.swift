@@ -21,6 +21,10 @@
  
  */
 
+/*
+ URL 부분 메서드 만들어서 코드 간결화 해야 좋을듯 해
+ */
+
 import UIKit
 import SnapKit
 import Kingfisher
@@ -41,10 +45,8 @@ class ViewController: BasicViewController {
         let group = DispatchGroup()
         
         group.enter()
-        
         // MARK: - append를 했었는데 이게 끝나는게 사실 제 각각 인셈이라 좋은 방법이 아닌것 같음
         TMDBManager.shared.fetchDetail(id: TMDBManager.dummyId) { result in
-            // self.allDatas.append([result])
         
             self.allDatasDic[0] = [result]
             
@@ -53,7 +55,6 @@ class ViewController: BasicViewController {
        
         group.enter()
         TMDBManager.shared.fetchRecommend(id: TMDBManager.dummyId) { results in
-            // self.allDatas.append(results)
             
             self.allDatasDic[1] = results
             
@@ -61,8 +62,6 @@ class ViewController: BasicViewController {
         }
         group.enter()
         TMDBManager.shared.fetchAggregate(id: TMDBManager.dummyId) { results in
-        
-            // self.allDatas.append(results)
             
             self.allDatasDic[2] = results
             
@@ -93,6 +92,7 @@ class ViewController: BasicViewController {
        
         tvSeriesTableView.register(TVSeriesTableViewCell.self, forCellReuseIdentifier: TVSeriesTableViewCell.reusableIdentifier)
         tvSeriesTableView.register(TVDetailTableViewCell.self, forCellReuseIdentifier: TVDetailTableViewCell.reusableIdentifier)
+        
     }
     
     override func designView() {
@@ -138,13 +138,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             cell.tvCollectionView.tag = indexPath.row
             
             cell.tvCollectionView.reloadData()
-            
+            print("🔥🔥🔥🔥🔥🔥🔥")
             return cell
         }
-        
-
-       
     }
+    
+   
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
