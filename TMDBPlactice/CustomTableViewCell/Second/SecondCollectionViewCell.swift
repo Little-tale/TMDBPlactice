@@ -45,7 +45,10 @@ class SecondCollectionViewCell: BasicCollecionViewCell {
     }
     func prepare(imageUrl : URL?, labelText: String? ) {
         
-        imageView.kf.setImage(with: imageUrl, placeholder: UIImage(systemName: "star"))
+        imageView.kf.setImage(with: imageUrl, placeholder: UIImage(systemName: "star"),options:[
+            .transition(.fade(0.5)),
+            .forceTransition
+          ])
         titleLabel.text = labelText
     }
     

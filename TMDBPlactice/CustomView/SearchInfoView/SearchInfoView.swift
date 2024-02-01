@@ -18,6 +18,14 @@ class SearchInfoView: BasicView {
     
     override func configureView() {
         backgroundColor = .white
+        registers()
     }
     
+    
+    func registers() {
+        tvSeriesTableView.register(TVSeriesTableViewCell.self, forCellReuseIdentifier: TVSeriesTableViewCell.reusableIdentifier)
+        tvSeriesTableView.register(TVDetailTableViewCell.self, forCellReuseIdentifier: TVDetailTableViewCell.reusableIdentifier)
+        
+        tvSeriesTableView.estimatedRowHeight = 250
+    }
 }

@@ -41,8 +41,7 @@ class SeccondTableViewCell: BasicTableViewCell {
         }
     }
     override func designView(){
-        //self.backgroundColor = .blue
-        
+       
     }
     
     func configureCollectionViewLayout() -> UICollectionViewLayout {
@@ -57,11 +56,14 @@ class SeccondTableViewCell: BasicTableViewCell {
         
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        prepare(headerName: nil)
     }
-
+    func prepare(headerName: String?) {
+        titleLabel.text = headerName
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         

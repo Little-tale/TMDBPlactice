@@ -7,7 +7,7 @@
 
 import UIKit
 import SnapKit
-
+import Kingfisher
 /*
  1. 이미지 뷰 필요
  2. 이름 라벨 필요
@@ -99,6 +99,21 @@ class TVDetailTableViewCell: BasicTableViewCell {
         print(UIScreen.main.bounds.height / 10 )
         
     
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        prepare(name: nil, image: nil, overView: nil, firstDate: nil)
+    }
+    
+    func prepare(name: String?, image: URL?, overView: String?, firstDate : String?){
+        originalNameLabel.text = name
+        overViewLabel.text = overView
+        dateLabel.text = firstDate
+        posterImageView.kf.setImage(with: image, options:[
+            .transition(.fade(0.5)),
+            .forceTransition
+          ])
     }
 }
 

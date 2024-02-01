@@ -79,12 +79,8 @@ class ViewController: BasicViewController {
     func registerInView() {
         mainView.tvSeriesTableView.delegate = self
         mainView.tvSeriesTableView.dataSource = self
-        mainView.tvSeriesTableView.estimatedRowHeight = 250
         
-        
-        mainView.tvSeriesTableView.register(TVSeriesTableViewCell.self, forCellReuseIdentifier: TVSeriesTableViewCell.reusableIdentifier)
-        mainView.tvSeriesTableView.register(TVDetailTableViewCell.self, forCellReuseIdentifier: TVDetailTableViewCell.reusableIdentifier)
-        
+        // 레지스터 있던 자리
     }
     
 }
@@ -107,24 +103,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             let resultcell = tableView.dequeueReusableCell(withIdentifier: TVDetailTableViewCell.reusableIdentifier, for: indexPath) as! TVDetailTableViewCell
             //
             let index = TMDBManager.TVSearchResultsSections.results.rawValue
+            let item = allDatasDic[indexPath.row]?[index]
             
-            resultcell.originalNameLabel.text = allDatasDic[indexPath.row]?[index].original_name
+            resultcell.prepare(name: item?.original_name, image: item?.getPosterURL, overView: item?.overview, firstDate: item?.first_air_date)
             
-            let urlString = TMDBManager.shared.imageBase + (allDatasDic[indexPath.row]?[index].poster_path ?? "")
-            
-            let url = URL(string: urlString)
-            
-            resultcell.posterImageView.kf.setImage(with: url)
-            resultcell.overViewLabel.text = allDatasDic[indexPath.row]?[index].overview
-            resultcell.dateLabel.text = allDatasDic[indexPath.row]?[index].first_air_date
             return resultcell
             
         } else {
             cell.tvCollectionView.dataSource = self
             cell.tvCollectionView.delegate = self
-            cell.infoLabel.text = tagName.discription()
             
-            cell.tvCollectionView.register(SecondCollectionViewCell.self, forCellWithReuseIdentifier: SecondCollectionViewCell.reuseIdenti)
+            cell.prepare(title: tagName.discription)
+            // 레지스터 있던자리
             cell.tvCollectionView.tag = indexPath.row
             
             cell.tvCollectionView.reloadData()
@@ -164,8 +154,6 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
         
         return cell
     }
-    
-    
     
 }
 

@@ -1,10 +1,3 @@
-//
-//  TMDBModel.swift
-//  TMDBPlactice
-//
-//  Created by Jae hyung Kim on 1/31/24.
-//
-
 import Foundation
 
 // 이제 이게 하나의 데이터 모델임

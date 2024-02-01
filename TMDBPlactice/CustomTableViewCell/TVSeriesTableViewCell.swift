@@ -57,5 +57,20 @@ class TVSeriesTableViewCell: BasicTableViewCell {
         return layout
     }
     
-
+    override func designView() {
+        registers()
+    }
+    
+    func registers(){
+        tvCollectionView.register(SecondCollectionViewCell.self, forCellWithReuseIdentifier: SecondCollectionViewCell.reuseIdenti)
+    }
+    
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        prepare(title: nil)
+    }
+    func prepare(title: String?){
+        infoLabel.text = title
+    }
 }

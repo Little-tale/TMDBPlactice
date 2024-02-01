@@ -21,22 +21,12 @@ import Alamofire
 class TMDBManager {
     
     static let shared = TMDBManager()
-    
-   
-    
     static let dummyId = "64010"
-    static let kor = "?language=ko-KR"
-    
-     //static let image = "https://image.tmdb.org/t/p/w500/"
     
     var imageBase : String {
         return "https://image.tmdb.org/t/p/w500/"
     }
     
-    enum TrendType {
-        static let day = "/day"
-        static let week = "/week"
-    }
     
     /// NEW
     func fetchInfoView(api: TMDBAPITV, complitionHandller: @escaping([Detail]) -> Void) {
@@ -81,7 +71,7 @@ class TMDBManager {
         case recommend
         case Aggregate
         
-        func discription() -> String {
+        var discription: String {
             switch self {
             case .results:
                 "드라마 정보"
@@ -106,7 +96,7 @@ class TMDBManager {
         case popularTV
         
         // MARK: - 이메서드는 각 태그의 따라 스트링을 뱉어줄거야
-        func getTMDBTagString() -> String {
+        var getTMDBTagString : String {
             switch self {
             case .trendTV:
                 "트렌드"
@@ -123,14 +113,11 @@ class TMDBManager {
         }
     }
     
-   
-    
     private init() {}
     
     static let Header: HTTPHeaders = [
         "Authorization" : APIKey.tmdb
     ]
-    
-   
+
 
 }

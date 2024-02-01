@@ -76,10 +76,9 @@ extension SeccondViewController: UITableViewDelegate, UITableViewDataSource {
         cell.collecionView.dataSource = self
         
         cell.collecionView.tag = indexPath.row
-        
-        
+        print("😍😍😍😍😍" ,indexPath.row)
         if let tagName = TMDBManager.TMDBTag.from(tagNum: indexPath.row) {
-            cell.titleLabel.text = tagName.getTMDBTagString()
+            cell.prepare(headerName: tagName.getTMDBTagString)
         }
         
         cell.collecionView.reloadData()
