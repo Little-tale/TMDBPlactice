@@ -101,18 +101,16 @@ extension SeccondViewController: UICollectionViewDelegate, UICollectionViewDataS
         cell.backgroundColor = .brown
         
         let tag = collectionView.tag
+    
+        let item = allDatasDic[tag]?[indexPath.item]
         
-        var url = TMDBManager.image
-        
-        if let urlString = allDatasDic[tag]?[indexPath.row].poster_path {
-            url += urlString
+        if let posterUrl = item?.getPosterURL {
+            cell.prepare(imageUrl: posterUrl, labelText: item?.original_name)
         }
-        if let urlString = allDatasDic[tag]?[indexPath.row].profile_path {
-            url += urlString
-        }
-        let urlSetting = URL(string:url)
         
-        cell.prepare(imageUrl: urlSetting, labelText: allDatasDic[tag]?[indexPath.row].original_name)
+        if let profileUrl = item?.getProfileURL {
+            cell.prepare(imageUrl: profileUrl, labelText: item?.original_name)
+        }
         
         return cell
     }

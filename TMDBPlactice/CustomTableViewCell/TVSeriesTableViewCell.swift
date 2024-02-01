@@ -12,29 +12,19 @@ class TVSeriesTableViewCell: BasicTableViewCell {
     
     static let reusableIdentifier = "TVSeriesTableViewCell"
     
-    let infoLabel = UILabel()
+    let infoLabel: UILabel = {
+        let view = UILabel()
+        view.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        return view
+    } ()
+    
+    
     // collecionViewLayout() 생성되기전 참조 시도는 Fail lazy로 viewdid 이후로 미룸
     lazy var tvCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collecionViewLayout())
-    
-    // 코드 베이스 대응
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-    }
-    //스토리 보드 대응
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        
     }
     
     override func configureHierarchy() {
@@ -52,16 +42,9 @@ class TVSeriesTableViewCell: BasicTableViewCell {
             make.height.greaterThanOrEqualTo(150).priority(900)
 
         }
-        
-        
-    }
-    override func designView() {
-        //infoLabel.backgroundColor = .red
-        // tvCollectionView.backgroundColor = .blue
-        
-        infoLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-    }
     
+    }
+
     func collecionViewLayout() -> UICollectionViewLayout{
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: UIScreen.main.bounds.width / 4 , height: (UIScreen.main.bounds.width / 4) * 1.5 )

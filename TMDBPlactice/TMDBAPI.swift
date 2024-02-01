@@ -24,6 +24,7 @@ enum TMDBAPITV {
     ] }
     
     
+    
     // https://api.themoviedb.org/3/  tv/  43242  /recommendations
     var endPoint: URL {
         switch self {
@@ -120,6 +121,7 @@ enum TMDBAPITV {
                 "/week"
             }
         }
+        
         
     }
     

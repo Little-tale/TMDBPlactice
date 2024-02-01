@@ -110,7 +110,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             
             resultcell.originalNameLabel.text = allDatasDic[indexPath.row]?[index].original_name
             
-            let urlString = TMDBManager.image + (allDatasDic[indexPath.row]?[index].poster_path ?? "")
+            let urlString = TMDBManager.shared.imageBase + (allDatasDic[indexPath.row]?[index].poster_path ?? "")
             
             let url = URL(string: urlString)
             
@@ -124,7 +124,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             cell.tvCollectionView.delegate = self
             cell.infoLabel.text = tagName.discription()
             
-            cell.tvCollectionView.register(TVDetailCollectionViewCell.self, forCellWithReuseIdentifier: TVDetailCollectionViewCell.reusuableIdentifier)
+            cell.tvCollectionView.register(SecondCollectionViewCell.self, forCellWithReuseIdentifier: SecondCollectionViewCell.reuseIdenti)
             cell.tvCollectionView.tag = indexPath.row
             
             cell.tvCollectionView.reloadData()
@@ -149,24 +149,18 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TVDetailCollectionViewCell.reusuableIdentifier, for: indexPath) as! TVDetailCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SecondCollectionViewCell.reuseIdenti, for: indexPath) as! SecondCollectionViewCell
         
         let tag = collectionView.tag
+        let item = allDatasDic[tag]?[indexPath.item]
         
-        var url = TMDBManager.image
-        
-        if let urlString = allDatasDic[tag]?[indexPath.row].poster_path {
-            url += urlString
-        }
-        if let urlString = allDatasDic[tag]?[indexPath.row].profile_path {
-            url += urlString
+        if let posterUrl = item?.getPosterURL {
+            cell.prepare(imageUrl: posterUrl, labelText: item?.original_name)
         }
         
-        let urlSetting = URL(string:url)
-        
-        cell.posterImageView.kf.setImage(with: urlSetting, placeholder: UIImage(systemName: "star"))
-        cell.originalNameLabel.text = allDatasDic[tag]?[indexPath.row].original_name
-        
+        if let profileUrl = item?.getProfileURL {
+            cell.prepare(imageUrl: profileUrl, labelText: item?.original_name)
+        }
         
         return cell
     }

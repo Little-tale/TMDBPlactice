@@ -27,8 +27,11 @@ class TMDBManager {
     static let dummyId = "64010"
     static let kor = "?language=ko-KR"
     
-    static let image = "https://image.tmdb.org/t/p/w500/"
-
+     //static let image = "https://image.tmdb.org/t/p/w500/"
+    
+    var imageBase : String {
+        return "https://image.tmdb.org/t/p/w500/"
+    }
     
     enum TrendType {
         static let day = "/day"
@@ -128,14 +131,6 @@ class TMDBManager {
         "Authorization" : APIKey.tmdb
     ]
     
-    // 1. 통신 성공
-    // 2. 값을 어떤 형태로 전달할지 고민해야함 차피 하나여서
-    
-    
    
-    
-    // 없는 값을 nil 로 해서 하나의 데이터 모델로 만들수 있다...!
-    // 
-  
 
 }

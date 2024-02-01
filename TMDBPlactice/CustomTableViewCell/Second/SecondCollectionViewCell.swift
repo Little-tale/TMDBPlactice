@@ -35,6 +35,8 @@ class SecondCollectionViewCell: BasicCollecionViewCell {
         
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
+        self.layer.cornerRadius = 10
+        self.clipsToBounds = true
     }
     // MARK: 재사용시 초기화 해줌 아주 착한 친구임
     // 잘 기억해
@@ -46,5 +48,7 @@ class SecondCollectionViewCell: BasicCollecionViewCell {
         imageView.kf.setImage(with: imageUrl, placeholder: UIImage(systemName: "star"))
         titleLabel.text = labelText
     }
+    
+    
     
 }
