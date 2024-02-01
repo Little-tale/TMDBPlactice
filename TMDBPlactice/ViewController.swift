@@ -46,7 +46,7 @@ class ViewController: BasicViewController {
         registerInView()
         let group = DispatchGroup()
         
-        id = 93405
+        // id = 93405
         // MARK: - append를 했었는데 이게 끝나는게 사실 제 각각 인셈이라 좋은 방법이 아닌것 같음
         group.enter()
         TMDBManager.shared.fetchInfoView(api: .detail(id: id, language: .kor)) {

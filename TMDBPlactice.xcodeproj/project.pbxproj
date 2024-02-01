@@ -34,6 +34,9 @@
 		7B0F37BD2B6BBEF700D26390 /* BasicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37BC2B6BBEF700D26390 /* BasicView.swift */; };
 		7B0F37C02B6BBFAF00D26390 /* SearchInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37BF2B6BBFAF00D26390 /* SearchInfoView.swift */; };
 		7B0F37C32B6BC3BC00D26390 /* TrendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37C22B6BC3BC00D26390 /* TrendView.swift */; };
+		7B0F37C82B6BE20E00D26390 /* TrendHederLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37C72B6BE20E00D26390 /* TrendHederLabel.swift */; };
+		7B0F37CA2B6BE88F00D26390 /* BasicCollecionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37C92B6BE88E00D26390 /* BasicCollecionViewCell.swift */; };
+		7B0F37CC2B6BE98200D26390 /* TrendPosterLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0F37CB2B6BE98200D26390 /* TrendPosterLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +65,9 @@
 		7B0F37BC2B6BBEF700D26390 /* BasicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicView.swift; sourceTree = "<group>"; };
 		7B0F37BF2B6BBFAF00D26390 /* SearchInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInfoView.swift; sourceTree = "<group>"; };
 		7B0F37C22B6BC3BC00D26390 /* TrendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendView.swift; sourceTree = "<group>"; };
+		7B0F37C72B6BE20E00D26390 /* TrendHederLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendHederLabel.swift; sourceTree = "<group>"; };
+		7B0F37C92B6BE88E00D26390 /* BasicCollecionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicCollecionViewCell.swift; sourceTree = "<group>"; };
+		7B0F37CB2B6BE98200D26390 /* TrendPosterLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendPosterLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,7 @@
 		7B0F376C2B6A048200D26390 /* TMDBPlactice */ = {
 			isa = PBXGroup;
 			children = (
+				7B0F37C62B6BE1E300D26390 /* CustomLabels */,
 				7B0F37BB2B6BBEDB00D26390 /* CustomView */,
 				7B0F37832B6A163C00D26390 /* CustomTableViewCell */,
 				7B0F376D2B6A048200D26390 /* AppDelegate.swift */,
@@ -126,6 +133,7 @@
 				7B0F379A2B6A1E9000D26390 /* TVCollectionViewCell.swift */,
 				7B0F379C2B6A1EAE00D26390 /* TVDetailCollectionViewCell.swift */,
 				7B0F37A22B6A2F5D00D26390 /* TVDetailTableViewCell.swift */,
+				7B0F37C92B6BE88E00D26390 /* BasicCollecionViewCell.swift */,
 			);
 			path = CustomTableViewCell;
 			sourceTree = "<group>";
@@ -164,6 +172,15 @@
 				7B0F37C22B6BC3BC00D26390 /* TrendView.swift */,
 			);
 			path = TrendView;
+			sourceTree = "<group>";
+		};
+		7B0F37C62B6BE1E300D26390 /* CustomLabels */ = {
+			isa = PBXGroup;
+			children = (
+				7B0F37C72B6BE20E00D26390 /* TrendHederLabel.swift */,
+				7B0F37CB2B6BE98200D26390 /* TrendPosterLabel.swift */,
+			);
+			path = CustomLabels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,11 +273,14 @@
 				7B0F37722B6A048200D26390 /* ViewController.swift in Sources */,
 				7B0F37B62B6B53CC00D26390 /* SeccondViewController.swift in Sources */,
 				7B0F37A12B6A1F8000D26390 /* APIManager.swift in Sources */,
+				7B0F37CC2B6BE98200D26390 /* TrendPosterLabel.swift in Sources */,
 				7B0F37872B6A172800D26390 /* BasicTableViewCell.swift in Sources */,
+				7B0F37C82B6BE20E00D26390 /* TrendHederLabel.swift in Sources */,
 				7B0F37A92B6A65CF00D26390 /* Before.swift in Sources */,
 				7B0F37822B6A053700D26390 /* BasicViewController.swift in Sources */,
 				7B0F376E2B6A048200D26390 /* AppDelegate.swift in Sources */,
 				7B0F37702B6A048200D26390 /* SceneDelegate.swift in Sources */,
+				7B0F37CA2B6BE88F00D26390 /* BasicCollecionViewCell.swift in Sources */,
 				7B0F379D2B6A1EAE00D26390 /* TVDetailCollectionViewCell.swift in Sources */,
 				7B0F379F2B6A1F3A00D26390 /* APIKey.swift in Sources */,
 				7B0F37A72B6A3ED100D26390 /* TMDBModel.swift in Sources */,

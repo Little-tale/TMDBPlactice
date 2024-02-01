@@ -112,11 +112,19 @@ extension SeccondViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
         let urlSetting = URL(string:url)
         
-        cell.imageView.kf.setImage(with: urlSetting , placeholder: UIImage(systemName: "star"))
-        
-        cell.titleLabel.text = allDatasDic[tag]?[indexPath.row].original_name
+        cell.prepare(imageUrl: urlSetting, labelText: allDatasDic[tag]?[indexPath.row].original_name)
         
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let vc = ViewController()
+        vc.id = allDatasDic[collectionView.tag]?[indexPath.row].id ?? 0
+        present(vc, animated: true)
+    }
+    
 }
+
+
+
 // MARK: - 순서가 컬렉션 뷰의 갯수가 정해진후 값이 들어온다 그래서... 테이블 뷰가 리로드 해주어야 할것같다.

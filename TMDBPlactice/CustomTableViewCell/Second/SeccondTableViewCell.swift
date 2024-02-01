@@ -7,26 +7,17 @@
 
 import UIKit
 
-class SeccondTableViewCell: UITableViewCell {
+class SeccondTableViewCell: BasicTableViewCell {
     
     static let reuseableIdentifier = "SeccondTableViewCell"
     
-    let titleLabel = UILabel()
+    let titleLabel = TrendHederLabel()
+    
     lazy var collecionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        all()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
-    func all(){
-        configureHierarchy()
-        configureLayout()
-        designView()
+
+    override func all(){
+        super.all()
         registers()
     }
     
@@ -34,14 +25,14 @@ class SeccondTableViewCell: UITableViewCell {
         collecionView.register(SecondCollectionViewCell.self, forCellWithReuseIdentifier: SecondCollectionViewCell.reuseIdenti)
     }
     
-    func configureHierarchy(){
+    override func configureHierarchy(){
         contentView.addSubview(titleLabel)
         contentView.addSubview(collecionView)
     }
-    func configureLayout(){
+    override func configureLayout(){
         titleLabel.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(contentView).inset(20)
-            make.height.equalTo(20)
+            make.height.equalTo(28)
         }
         collecionView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom)
@@ -49,10 +40,8 @@ class SeccondTableViewCell: UITableViewCell {
             make.height.greaterThanOrEqualTo(180).priority(900)
         }
     }
-    func designView(){
-        self.backgroundColor = .blue
-        collecionView.backgroundColor = .red
-        titleLabel.backgroundColor = .white
+    override func designView(){
+        //self.backgroundColor = .blue
         
     }
     
@@ -75,8 +64,7 @@ class SeccondTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-
+        
     }
 
 }

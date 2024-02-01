@@ -6,32 +6,20 @@
 //
 
 import UIKit
+import SnapKit
+import Kingfisher
 
-class SecondCollectionViewCell: UICollectionViewCell {
-    let titleLabel = UILabel()
+class SecondCollectionViewCell: BasicCollecionViewCell {
+    let titleLabel = TrendPosterLabel()
     let imageView = UIImageView()
     static let reuseIdenti = "SecondCollectionViewCell"
     
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        all()
-    }
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        all()
-    }
-    func all(){
-        configureHierarchy()
-        configureLayout()
-        designView()
-    }
-    
-    func configureHierarchy(){
+    override func configureHierarchy(){
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
     }
-    func configureLayout(){
+    override func configureLayout(){
         imageView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalTo(contentView)
             make.height.equalTo(contentView).inset(10)
@@ -42,11 +30,21 @@ class SecondCollectionViewCell: UICollectionViewCell {
             make.height.equalTo(20)
         }
     }
-    func designView(){
+    override func designView(){
         imageView.backgroundColor = .cyan
-        titleLabel.backgroundColor = .orange
+        
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
+    }
+    // MARK: 재사용시 초기화 해줌 아주 착한 친구임
+    // 잘 기억해
+    override func prepareForReuse() {
+        prepare(imageUrl: nil, labelText: nil)
+    }
+    func prepare(imageUrl : URL?, labelText: String? ) {
+        
+        imageView.kf.setImage(with: imageUrl, placeholder: UIImage(systemName: "star"))
+        titleLabel.text = labelText
     }
     
 }
