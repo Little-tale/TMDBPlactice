@@ -120,6 +120,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             let index = TMDBManager.TVSearchResultsSections.results.rawValue
             
             resultcell.originalNameLabel.text = allDatasDic[indexPath.row]?[index].original_name
+            
             let urlString = TMDBManager.image + (allDatasDic[indexPath.row]?[index].poster_path ?? "")
             
             let url = URL(string: urlString)

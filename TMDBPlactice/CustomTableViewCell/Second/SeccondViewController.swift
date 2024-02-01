@@ -22,8 +22,7 @@ class SeccondViewController: UIViewController {
     // 이게 고정적인 느낌이 있는데 차라리 정해진 갯수가 없고 그 값에 따라
     // 유동적으로 섹션이 생기면 좋지 않을까?
     
-    var allData: [TMDBTVAll] = []
-    
+    var allDatasDic: [ Int : [Detail] ] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,19 +30,32 @@ class SeccondViewController: UIViewController {
         all()
         
         
-        TMDBManager.shared.petchTMDBTV(basicUrl: TMDBManager.BasicUrl.trendTV, Type: TMDBManager.TrendType.day) { results in
-            self.allData.append(results)
-            self.tableContentView.reloadData()
+        let group = DispatchGroup()
+        
+        group.enter()
+        TMDBManager.shared.fetchInfoViewList(api: .trendTV(language: .kor, trendType: .day)) { results in
+            self.allDatasDic[0] = results
+            print("😡")
+            group.leave()
         }
-        TMDBManager.shared.petchTMDBTV(basicUrl: TMDBManager.BasicUrl.topRatedTV, Type: nil) { results in
-            self.allData.append(results)
-            self.tableContentView.reloadData()
+        
+        group.enter()
+        TMDBManager.shared.fetchInfoViewList(api: .topTV(language: .kor)) { results in
+            self.allDatasDic[1] = results
+            print("🆑")
+            group.leave()
         }
-        TMDBManager.shared.petchTMDBTV(basicUrl: TMDBManager.BasicUrl.popularTV, Type: nil) { results in
-            self.allData.append(results)
+        
+        group.enter()
+        TMDBManager.shared.fetchInfoViewList(api: .popularTV(language: .kor)) { results in
+            self.allDatasDic[2] = results
+            print("🎭")
+            group.leave()
+        }
+       
+        group.notify(queue: .main) {
+            print(self.allDatasDic.count,"ASdsad")
             self.tableContentView.reloadData()
-            
-            // print(self.allData)
         }
         
     }
@@ -84,7 +96,8 @@ class SeccondViewController: UIViewController {
 //MARK: - 테이블뷰가 사실상 Section -> 3개가 나오면 된다.
 extension SeccondViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allData.count
+        print(allDatasDic.count)
+        return allDatasDic.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -115,26 +128,33 @@ extension SeccondViewController: UITableViewDelegate, UITableViewDataSource {
 //MARK: - 컬렉션뷰는 items에 속한다고 생각
 extension SeccondViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("데이터가 없니??", allData[collectionView.tag].results.count)
-        return allData[collectionView.tag].results.count
+        //print("데이터가 없니??", allData[collectionView.tag].results.count)
+        return allDatasDic[collectionView.tag]?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SecondCollectionViewCell.reuseIdenti , for: indexPath) as! SecondCollectionViewCell
         cell.backgroundColor = .brown
         
+        let tag = collectionView.tag
         print("난 아들인데 번호가..? ",collectionView.tag)
         
-        let urlString = TMDBManager.BasicUrl.image + (allData[collectionView.tag].results[indexPath.item].poster_path ?? "")
-        let url = URL(string: urlString)
+        var url = TMDBManager.image
         
-        cell.imageView.kf.setImage(with: url , placeholder: UIImage(systemName: "star"))
+        if let urlString = allDatasDic[tag]?[indexPath.row].poster_path {
+            url += urlString
+        }
+        if let urlString = allDatasDic[tag]?[indexPath.row].profile_path {
+            url += urlString
+        }
+        let urlSetting = URL(string:url)
         
-        cell.titleLabel.text = allData[collectionView.tag].results[indexPath.item].original_name
+        cell.imageView.kf.setImage(with: urlSetting , placeholder: UIImage(systemName: "star"))
         
-        // MARK: - 순서가 컬렉션 뷰의 갯수가 정해진후 값이 들어온다 그래서... 테이블 뷰가 리로드 해주어야 할것같다.
+        cell.titleLabel.text = allDatasDic[tag]?[indexPath.row].original_name
+        
+        
         return cell
     }
-    
-    
 }
+// MARK: - 순서가 컬렉션 뷰의 갯수가 정해진후 값이 들어온다 그래서... 테이블 뷰가 리로드 해주어야 할것같다.

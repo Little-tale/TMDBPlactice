@@ -12,6 +12,9 @@ enum TMDBAPITV {
     case detail(id: Int, language: Language?)
     case recommend(id: Int, language: Language?)
     case Aggregate(id: Int, language: Language?)
+    case trendTV(language:Language?, trendType: TrendType)
+    case topTV(language:Language?)
+    case popularTV(language:Language?)
     
     var baseURL: String {
         return "https://api.themoviedb.org/3/"
@@ -19,6 +22,8 @@ enum TMDBAPITV {
     var Header: HTTPHeaders { [
         "Authorization" : APIKey.tmdb
     ] }
+    
+    
     // https://api.themoviedb.org/3/  tv/  43242  /recommendations
     var endPoint: URL {
         switch self {
@@ -34,6 +39,18 @@ enum TMDBAPITV {
         case .Aggregate(let id, _):
             let url = URL(string: "\(baseURL)tv/\(id)/aggregate_credits")
             return url!
+     
+        case .trendTV(_, trendType: let trendType):
+            let url = URL(string: "\(baseURL)trending/tv/\(trendType)")
+            return url!
+            
+        case .topTV(language: _):
+            let url = URL(string: "\(baseURL)tv/top_rated")
+            return url!
+            
+        case .popularTV(language: _):
+            let url = URL(string: "\(baseURL)tv/popular")
+            return url!
         }
     }
     
@@ -48,6 +65,15 @@ enum TMDBAPITV {
         case .Aggregate(_, let language):
             
             return ["language":"\(language?.get ?? "")"]
+        case .trendTV(language: let language, trendType: _):
+            
+            return ["language":"\(language?.get ?? "")"]
+        case .topTV(language: let language):
+            // ["language":"\(language?.get ?? "")"]
+            return ["language":"\(language?.get ?? "")"]
+            
+        case .popularTV(language: let language):
+            return ["language":"\(language?.get ?? "")"]
         }
     }
     
@@ -58,6 +84,12 @@ enum TMDBAPITV {
         case .recommend(_, _):
             return .get
         case .Aggregate(_, _):
+            return .get
+        case .trendTV(_, _):
+            return .get
+        case .topTV(_):
+            return .get
+        case .popularTV(_):
             return .get
         }
     }
@@ -75,6 +107,22 @@ enum TMDBAPITV {
             }
         }
     }
+    
+    enum TrendType {
+        case day
+        case eng
+        
+        var get: String {
+            switch self {
+            case .day:
+                "/day"
+            case .eng:
+                "/week"
+            }
+        }
+        
+    }
+    
 }
 
 

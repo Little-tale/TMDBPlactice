@@ -28,15 +28,7 @@ class TMDBManager {
     static let kor = "?language=ko-KR"
     
     static let image = "https://image.tmdb.org/t/p/w500/"
-    
-    enum BasicUrl {
-        static let trendTV = "https://api.themoviedb.org/3/trending/tv"
-        static let topRatedTV = "https://api.themoviedb.org/3/tv/top_rated"
-        static let popularTV = "https://api.themoviedb.org/3/tv/popular"
-        static let image = "https://image.tmdb.org/t/p/w500/"
-        static let ThirdViewBase = "https://api.themoviedb.org/3/tv/"
-        //
-    }
+
     
     enum TrendType {
         static let day = "/day"
@@ -68,6 +60,7 @@ class TMDBManager {
             switch response.result {
             case .success(let success):
                 if let suc = success.results {
+                    // dump(suc)
                     complitionHandller(suc)
                 }
                 if let suc = success.cast {
@@ -78,9 +71,6 @@ class TMDBManager {
             }
         }
     }
-    
-    
-   /// VIew 2 -> Start
     
     
     enum TVSearchResultsSections:Int {
@@ -103,7 +93,9 @@ class TMDBManager {
         }
     }
     
+   /// VIew 2 -> Start
     
+
     // MARK: - 테스트를 위해 숫자를 마구잡이로 -> 하게되면 만들어둔 배열이 0 1 2 3 이런식이라 고민 많이 해야함
     enum TMDBTag: Int {
         case trendTV
@@ -114,7 +106,7 @@ class TMDBManager {
         func getTMDBTagString() -> String {
             switch self {
             case .trendTV:
-                "트렌트"
+                "트렌드"
             case .topRatedTV:
                 "TOP RATED"
             case .popularTV:
@@ -128,36 +120,7 @@ class TMDBManager {
         }
     }
     
-    func petchTMDBTV (basicUrl: String, Type: String? , compliteHandler : @escaping (TMDBTVAll) -> Void ) {
-        var url = basicUrl //BasicUrl.popularTV
-        
-//        if Type != nil{
-//            url = url + Type!
-//        }
-        if let type = Type {
-            url = url + type
-        }
-        
-        AF.request(url, method: .get, headers: TMDBManager.Header).responseDecodable(of: TMDBTVAll.self) { response in
-            switch response.result {
-            case .success(let success):
-//                print(success)
-                compliteHandler(success)
-            case .failure(let failure):
-                print("✂️✂️✂️✂️✂️✂️")
-                print(failure)
-            }
-        }
-        
-    }
-    
-    
-    
-    
-    
-    
-    
-    
+   
     
     private init() {}
     
