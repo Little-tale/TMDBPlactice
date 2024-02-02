@@ -39,13 +39,15 @@ class SecondCollectionViewCell: BasicCollecionViewCell {
         self.clipsToBounds = true
     }
     // MARK: 재사용시 초기화 해줌 아주 착한 친구임
-    // 잘 기억해
+    // 잘 기억해 -> 재사용 이슈일때.
     override func prepareForReuse() {
         prepare(imageUrl: nil, labelText: nil)
+        print(#function)
     }
+    // 이게 먼저 실행 되는건가.
     func prepare(imageUrl : URL?, labelText: String? ) {
         
-        imageView.kf.setImage(with: imageUrl, placeholder: UIImage(systemName: "star"),options:[
+        imageView.kf.setImage(with: imageUrl, placeholder: UIImage(systemName: "progressBlock"),options:[
             .transition(.fade(0.5)),
             .forceTransition
           ])

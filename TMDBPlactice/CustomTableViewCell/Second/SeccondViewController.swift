@@ -57,6 +57,7 @@ class SeccondViewController: UIViewController {
         
         trendMainView.tableContentView.delegate = self
         trendMainView.tableContentView.dataSource = self
+        trendMainView.searchBar.delegate = self
     }
     
 
@@ -122,6 +123,19 @@ extension SeccondViewController: UICollectionViewDelegate, UICollectionViewDataS
     
 }
 
-
+extension SeccondViewController : UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        var result: [Detail] = []
+        TMDBManager.shared.fetchInfoViewList(api: .search(query: searchBar.text!, Language: .kor)) { results in
+            result = results
+        }
+       
+        let vc = ViewController()
+        
+        vc.id = result.first?.id ?? 0
+        
+        present(vc, animated: true)
+    }
+}
 
 // MARK: - 순서가 컬렉션 뷰의 갯수가 정해진후 값이 들어온다 그래서... 테이블 뷰가 리로드 해주어야 할것같다.

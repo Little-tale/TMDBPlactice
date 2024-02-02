@@ -22,38 +22,11 @@ class TVDetailTableViewCell: BasicTableViewCell {
     let overViewLabel = UILabel()
     let posterImageView = UIImageView()
     let dateLabel = UILabel()
-    
-    // 코드 베이스 대응
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configureHierarchy()
-        configureLayout()
-        designView()
-    }
-    //스토리 보드 대응
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        configureHierarchy()
-        configureLayout()
-        designView()
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-    }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        
     }
     
-    override func all(){
-        configureHierarchy()
-        configureLayout()
-        designView()
-    }
     
     override func configureHierarchy(){
         contentView.addSubview(posterImageView)
@@ -97,7 +70,6 @@ class TVDetailTableViewCell: BasicTableViewCell {
         originalNameLabel.font = .systemFont(ofSize: 30, weight: .heavy)
         
         print(UIScreen.main.bounds.height / 10 )
-        
     
     }
     

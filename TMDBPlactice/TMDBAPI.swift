@@ -15,6 +15,7 @@ enum TMDBAPITV {
     case trendTV(language:Language?, trendType: TrendType)
     case topTV(language:Language?)
     case popularTV(language:Language?)
+    case search(query: String, Language: Language?)
     
     var baseURL: String {
         return "https://api.themoviedb.org/3/"
@@ -52,6 +53,8 @@ enum TMDBAPITV {
         case .popularTV(language: _):
             let url = URL(string: "\(baseURL)tv/popular")
             return url!
+        case .search(query: let query,_):
+            return URL(string: baseURL + "search/movie")!
         }
     }
     
@@ -75,6 +78,8 @@ enum TMDBAPITV {
             
         case .popularTV(language: let language):
             return ["language":"\(language?.get ?? "")"]
+        case .search(query: let query, Language: let language):
+            return ["language":"\(language?.get ?? "")" , "query": query]
         }
     }
     
@@ -91,6 +96,8 @@ enum TMDBAPITV {
         case .topTV(_):
             return .get
         case .popularTV(_):
+            return .get
+        case .search(query: let query, Language: let Language):
             return .get
         }
     }

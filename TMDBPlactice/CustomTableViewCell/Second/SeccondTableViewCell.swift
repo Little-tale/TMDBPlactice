@@ -15,7 +15,6 @@ class SeccondTableViewCell: BasicTableViewCell {
     
     lazy var collecionView = UICollectionView(frame: .zero, collectionViewLayout: configureCollectionViewLayout())
 
-
     override func all(){
         super.all()
         registers()
